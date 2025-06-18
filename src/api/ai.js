@@ -14,7 +14,7 @@ const generationConfig = {
   maxOutputTokens: 8192,
   responseMimeType: "text/plain",
 };
-export function GET(request) {
+export function POST(request, Response) {
   const prompt = request.prompt;
   async function run(prompt) {
     const chatSession = model.startChat({
@@ -27,7 +27,7 @@ export function GET(request) {
     return response.text();
   }
   const result = run(prompt);
-  return response.json({
+  return Response.json({
       result
   })
 }
