@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function run(prompt) {
-  const response = await axios.post("http://localhost:5173/api/ai", {
+  const response = await axios.post("https://ai-sharthi.vercel.app/api/ai", {
     prompt,
   });
   return response.data;
