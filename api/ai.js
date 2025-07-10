@@ -13,8 +13,8 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 export default async function handler(request, response) {
-  const body = await request.json();
-  const prompt = body.prompt;
+
+  const {prompt} = req.body;
   async function run(prompt) {
     const chatSession = model.startChat({
       generationConfig,
