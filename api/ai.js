@@ -14,7 +14,7 @@ const generationConfig = {
 };
 export default async function handler(request, response) {
 
-  const {prompt} = req.body;
+  const {prompt} = request.body;
   async function run(prompt) {
     const chatSession = model.startChat({
       generationConfig,
