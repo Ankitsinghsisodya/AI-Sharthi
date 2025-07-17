@@ -1,28 +1,30 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 export default async function handler(request, response) {
-  const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash-exp",
-  });
-
-  const generationConfig = {
-    temperature: 1,
-    topP: 0.95,
-    topK: 40,
-    maxOutputTokens: 8192,
-    responseMimeType: "text/plain",
-  };
-
+  const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY || "" });
   const { prompt } = request.body;
-  async function run(prompt) {
-    const chatSession = model.startChat({
-      generationConfig,
-      history: [],
+  async function run() {
+    const time = Date.now();
+    let thinkingBudget = 0;
+    if (thinkingLevel == "Moderate") {
+      thinkingBudget = -1;
+    } else if (thinkingLevel === "High") {
+      thinkingBudget = 1024;
+    }
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: `${prompt}`,
+      config: {
+        thinkingConfig: {
+          // thinkingBudget: 1024,
+          // Turn off thinking:
+          thinkingBudget,
+          // Turn on dynamic thinking:
+          // thinkingBudget: -1
+        },
+      },
     });
-
-    const result = await chatSession.sendMessage(prompt);
-    const response = result.response;
-    return response.text();
+    console.log("time taken", Date.now() - time);
+    return response.text;
   }
 
   const result = run(prompt);
