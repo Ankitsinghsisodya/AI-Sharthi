@@ -17,7 +17,7 @@ export default async function handler(request, response) {
         thinkingConfig: {
           // thinkingBudget: 1024,
           // Turn off thinking:
-          thinkingBudget,
+          thinkingBudget: -1
           // Turn on dynamic thinking:
           // thinkingBudget: -1
         },
