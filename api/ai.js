@@ -4,12 +4,7 @@ export default async function handler(request, response) {
   const { prompt } = request.body;
   async function run() {
     const time = Date.now();
-    let thinkingBudget = 0;
-    if (thinkingLevel == "Moderate") {
-      thinkingBudget = -1;
-    } else if (thinkingLevel === "High") {
-      thinkingBudget = 1024;
-    }
+
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `${prompt}`,
