@@ -23,7 +23,7 @@ export default async function handler(request, response) {
     return response.text ;
   }
 
-  const result = run(prompt);
+  const result =  await run(prompt);
   console.log('result', result);
   return response.json({
     result,
