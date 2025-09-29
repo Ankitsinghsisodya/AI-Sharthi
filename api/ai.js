@@ -1,6 +1,4 @@
-import {
-  GoogleGenerativeAI,
-} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
@@ -14,8 +12,9 @@ const generationConfig = {
   maxOutputTokens: 8192,
   responseMimeType: "text/plain",
 };
-export default function handler(request, response) {
-  const prompt = request.prompt;
+export default async function handler(request, response) {
+  const body = await request.json();
+  const prompt = body.prompt;
   async function run(prompt) {
     const chatSession = model.startChat({
       generationConfig,
@@ -29,6 +28,6 @@ export default function handler(request, response) {
 
   const result = run(prompt);
   return response.json({
-      result
-  })
+    result,
+  });
 }
