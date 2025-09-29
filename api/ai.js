@@ -19,7 +19,7 @@ export default async function handler(request, response) {
       },
     });
     console.log("time taken", Date.now() - time);
-    return response.text;
+    return response.text ;
   }
 
   const result = run(prompt);
