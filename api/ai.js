@@ -1,8 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
-export default async function handler(request, response) {
+export default async function POST(request, response) {
   const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY || "" });
   const { prompt } = request.body;
-  console.log('ankit');
+
   async function run() {
     const time = Date.now();
 
@@ -24,7 +24,7 @@ export default async function handler(request, response) {
   }
 
   const result =  await run(prompt);
-  console.log('result', result);
+
   return response.json({
     result,
   });
